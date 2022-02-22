@@ -36,7 +36,7 @@ if [ "$first" != 1 ];then
 	cd "$cur"
 fi
 mkdir -p kali-binds
-bin=start-kali.sh
+bin=kali
 echo "writing launch script"
 cat > $bin <<- EOM
 #!/bin/bash
@@ -77,7 +77,9 @@ EOM
 echo "fixing shebang of $bin"
 termux-fix-shebang $bin
 echo "making $bin executable"
-chmod +x $bin
+
+mv $bin /data/data/com.termux/files/usr/bin 
+chmod +x /data/data/com.termux/files/usr/bin/kali
 echo "removing image for some space"
 rm $tarball
-echo "You can now launch Kali with the ./${bin} script"
+echo "You can now launch Kali by just typing  \"kali\" "
