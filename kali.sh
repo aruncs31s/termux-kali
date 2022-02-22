@@ -1,14 +1,14 @@
-#most of the parts of this script is made by https://github.com/EXALAB/AnLinux-App
+#most of the parts of this script is made by https://github.com/EXALAB/
+#and i have only made some changes
 #!/data/data/com.termux/files/usr/bin/bash
-kalidir=termux-kali
-PREFIX=/data/data/com.termux/files/usr
-if [ -d "$kalidir" ]; then
+folder=kali-fs
+if [ -d "$folder" ]; then
 	first=1
-	printf "kali linux is alredy installed\nIf not remove the $kalidir"
+	echo "skipping downloading"
 fi
-kalitar="kali-rootfs.tar.xz"
-if [[(-f ~/$kalidir)]]; then
-	if [ ! -f $kalitar ]; then
+tarball="kali-rootfs.tar.xz"
+if [ "$first" != 1 ];then
+	if [ ! -f $tarball ]; then
 		echo "Download Rootfs, this may take a while base on your internet speed."
 		case `dpkg --print-architecture` in
 		aarch64)
@@ -26,17 +26,17 @@ if [[(-f ~/$kalidir)]]; then
 		*)
 			echo "unknown architecture"; exit 1 ;;
 		esac
-		wget "https://raw.githubusercontent.com/EXALAB/AnLinux-Resources/master/Rootfs/Kali/${archurl}/kali-rootfs-${archurl}.tar.xz" -O $kalitar
+		wget "https://raw.githubusercontent.com/EXALAB/AnLinux-Resources/master/Rootfs/Kali/${archurl}/kali-rootfs-${archurl}.tar.xz" -O $tarball
 	fi
 	cur=`pwd`
-	mkdir -p "$kali"
-	cd "$kali"
+	mkdir -p "$folder"
+	cd "$folder"
 	echo "Decompressing Rootfs, please be patient."
-	proot --link2symlink tar -xJf ${cur}/${kalitar}||:
+	proot --link2symlink tar -xJf ${cur}/${tarball}||:
 	cd "$cur"
 fi
 mkdir -p kali-binds
-bin=kali
+bin=start-kali.sh
 echo "writing launch script"
 cat > $bin <<- EOM
 #!/bin/bash
@@ -46,7 +46,7 @@ unset LD_PRELOAD
 command="proot"
 command+=" --link2symlink"
 command+=" -0"
-command+=" -r $kalidir"
+command+=" -r $folder"
 if [ -n "\$(ls -A kali-binds)" ]; then
     for f in kali-binds/* ;do
       . \$f
@@ -56,9 +56,9 @@ command+=" -b /dev"
 command+=" -b /proc"
 command+=" -b kali-fs/root:/dev/shm"
 ## uncomment the following line to have access to the home directory of termux
-#command+=" -b /data/data/com.termux/files/home:/root"
+command+=" -b /data/data/com.termux/files/home:/root"
 ## uncomment the following line to mount /sdcard directly to / 
-command+=" -b /sdcard"
+#command+=" -b /sdcard"
 command+=" -w /root"
 command+=" /usr/bin/env -i"
 command+=" HOME=/root"
@@ -74,11 +74,10 @@ else
 fi
 EOM
 
+echo "fixing shebang of $bin"
 termux-fix-shebang $bin
 echo "making $bin executable"
 chmod +x $bin
-cp $bin $PREFIX/bin/
 echo "removing image for some space"
-rm -rf $kalitar
-printf "\nkali linux is now installed\n"
-echo "You can now launch Kali by typing \"kali\" or \"./kali\""
+rm $tarball
+echo "You can now launch Kali with the ./${bin} script"
