@@ -42,15 +42,15 @@ unset LD_PRELOAD
 command="proot"
 command+=" --link2symlink"
 command+=" -0"
-command+=" -r $folder"
-if [ -n "\$(ls -A kali-binds)" ]; then
+command+=" -r /data/data/com.termux/files/home/kali-fs"
+if [ -n "\$(ls -A /data/data/com.termux/files/home/kali-binds)" ]; then
     for f in kali-binds/* ;do
       . \$f
     done
 fi
 command+=" -b /dev"
 command+=" -b /proc"
-command+=" -b kali-fs/root:/dev/shm"
+command+=" -b /data/data/com.termux/files/homekali-fs/root:/dev/shm"
 ## uncomment the following line to have access to the home directory of termux
 command+=" -b /data/data/com.termux/files/home:/root"
 ## uncomment the following line to mount /sdcard directly to / 
@@ -86,4 +86,5 @@ if [ -d "$folder" ]; then
 	printf "Kali-linux is laredy installed\nIf not remove the ~/kali-fs"
 else
 tarball="kali-rootfs.tar.xz"
+install
 fi
