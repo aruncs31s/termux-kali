@@ -2,10 +2,6 @@
 #and i have only made some changes
 #!/data/data/com.termux/files/usr/bin/bash
 folder=kali-fs
-if [ -d "$folder" ]; then
-	printf "Kali-linux is laredy installed\nIf not remove the ~/kali-fs"
-else
-tarball="kali-rootfs.tar.xz"
 install(){
 if [ "$first" != 1 ];then
 	if [ ! -f $tarball ]; then
@@ -85,3 +81,9 @@ rm $tarball
 echo "You can now launch Kali by just typing  \"kali\" "
 }
 
+
+if [ -d "$folder" ]; then
+	printf "Kali-linux is laredy installed\nIf not remove the ~/kali-fs"
+else
+tarball="kali-rootfs.tar.xz"
+fi
