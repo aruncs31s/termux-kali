@@ -86,4 +86,5 @@ if [ -d "$folder" ]; then
 	printf "Kali-linux is laredy installed\nIf not remove the ~/kali-fs"
 else
 tarball="kali-rootfs.tar.xz"
+install
 fi
