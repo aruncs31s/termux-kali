@@ -18,19 +18,21 @@ CYAN        = Fore.CYAN
 BOLD        = '\033[1m'
 BRIGHT      = Style.BRIGHT
 
-BACKRED     = Back.RED
-BACKGREEN   = Back.GREEN
-BACKYELLOW  = Back.YELLOW
-BACKMAGENTA = Back.MAGENTA
+#//BACKRED     = Back.RED
+#//BACKGREEN   = Back.GREEN
+#//BACKYELLOW  = Back.YELLOW
+#//BACKMAGENTA = Back.MAGENTA
 
-RESET      = Style.RESET_ALL
+#//RESET      = Style.RESET_ALL
 #
+def update_kali():
+	system('apt update')
 
-class pkgs:
-	X11      = 'pkg install -y x11-repo'
-	PKGS     = 'pkg install -y xfce4 tigervnc '
-	UNSTABLE = 'pkg install -y gobject-introspection at-spi2-atk '
-	
+
+class kali:
+	theme = 'apt install -y kali-themes kali-menu'
+	basic = 'apt install -y xfce4 xfce4-goodies tigervnc '
+	clean = 'ff'
 
 class extra:
 	def access_storage():
@@ -39,10 +41,15 @@ class extra:
 	def symbolic_link():
 		system('ln -s $HOME/storage/music $HOME/Music')
 #	
-def vnc():
+def vnc_setup():
+ 	system('mkdir $HOME/.vnc')
+    system('vncpasswd')
+	system('cp -rf $HOME/termux-kali/xfce4/start-xfce4 $PREFIX/bin')
+	system('cp -rf $HOME/termux-kali/xfce4/stop-xfce4 PREFIX/bin')
+	system('cp -rf $HOME/termux-kali/xfce4/xstartup $HOME/.vnc')
 
 
-def folders():
+def user_folders():
 	system('mkdir $HOME/Desktop')
 	system('mkdir $HOME/Downloads')
 	system('mkdir $HOME/Templates')
@@ -58,16 +65,26 @@ def exit_py():
 def main():
 	pass
 
-os.chdir(r'/data/data/com.termux/files/home')
-interface = BRIGHT + MAGENTA + "Termux-kali "
+
+
+#os.chdir(r'/data/data/com.termux/files/home')
+interface = BRIGHT + MAGENTA + "Termux-kali"
 print(interface.center(60))
-sleep(1)
+sleep(0.1)
+def write(in_text):
+ for char in in_text:
+  waite(0.05)
+  sys.stdout.write(char)
+  sys.stdout.flush()
+ 
+write(f"{CYAN}[+]{GREEN} Installing Xfce4 ...")
+print("\t")
+system(kali.update_kali)
+system(kali.basic)
+system(kali.theme)
 
 print(BRIGHT + MAGENTA + "\n\t Push " + BRIGHT + YELLOW + "ENTER " + BRIGHT + MAGENTA + "to continue ... ")
 input(BRIGHT + GREEN + " >> ")
 
 
 sleep(0.5)
-system(pkgs.X11)
-system(pkgs.PKGS)
-system(pkgs.UNSTABLE)

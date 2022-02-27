@@ -32,11 +32,7 @@ print(interface.center(60))
 #sleep(1)
 
 def vnc_setup():
-    system('mkdir $HOME/.vnc')
-    system('vncpasswd')
-	system('cp -rf $HOME/termux-kali/xfce4/start-xfce4 $PREFIX/bin')
-	system('cp -rf $HOME/termux-kali/xfce4/stop-xfce4 PREFIX/bin')
-	system('cp -rf $HOME/termux-kali/xfce4/xstartup $HOME/.vnc')
+   xx
 
 
 #print(BRIGHT + MAGENTA + "REMOVING OLD FILES IF EXISTS" + RESET)
