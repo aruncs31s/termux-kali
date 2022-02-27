@@ -3,10 +3,11 @@
 #!/data/data/com.termux/files/usr/bin/bash
 folder=kali-fs
 if [ -d "$folder" ]; then
-	first=1
-	echo "skipping downloading"
-fi
+	printf "Kali-linux is laredy installed\nIf not remove the ~/kali-fs"
+else
+install
 tarball="kali-rootfs.tar.xz"
+install(){
 if [ "$first" != 1 ];then
 	if [ ! -f $tarball ]; then
 		echo "Download Rootfs, this may take a while base on your internet speed."
@@ -83,3 +84,5 @@ chmod +x /data/data/com.termux/files/usr/bin/kali
 echo "removing image for some space"
 rm $tarball
 echo "You can now launch Kali by just typing  \"kali\" "
+}
+install
