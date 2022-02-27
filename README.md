@@ -4,7 +4,7 @@ kali linux installer for termux
 
 ### Installition 
 ``` 
-curl -o ~/kali.sh https://github.com/aruncs31s/termux-kali/blob/main/kali.sh?raw=true
+curl -L -o ~/kali.sh https://github.com/aruncs31s/termux-kali/blob/main/kali.sh?raw=true
 bash ~/kali.sh
 
 ```
