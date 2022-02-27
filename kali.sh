@@ -5,7 +5,6 @@ folder=kali-fs
 if [ -d "$folder" ]; then
 	printf "Kali-linux is laredy installed\nIf not remove the ~/kali-fs"
 else
-install
 tarball="kali-rootfs.tar.xz"
 install(){
 if [ "$first" != 1 ];then
@@ -85,4 +84,4 @@ echo "removing image for some space"
 rm $tarball
 echo "You can now launch Kali by just typing  \"kali\" "
 }
-install
+
