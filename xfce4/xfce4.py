@@ -31,7 +31,7 @@ def update_kali():
 
 class kali:
 	theme = 'apt install -y kali-themes kali-menu'
-	basic = 'apt install -y xfce4 xfce4-goodies tigervnc '
+	basic = 'apt install -y xfce4 xfce4-goodies  tightvncsever'
 	clean = 'ff'
 
 class extra:
