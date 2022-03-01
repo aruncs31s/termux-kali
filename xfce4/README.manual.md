@@ -4,7 +4,7 @@
 apt update 
 apt  install nano -y 
 apt install -y kali-themes kali-menu
-apt install -y xfce4 xfce4-goodies tigervnc
+apt install -y xfce4 xfce4-goodies tightvncserver
 ```
 ### vnc
 ```
@@ -12,8 +12,9 @@ vncpasswd
 ```
 ### vnc-configs
 ``` 
-echo "#!/usr/bin/bash
-xfce4-session & " >> ~/.vnc/xstartup
+nano ~/.vnc/xstartup
+** #!/usr/bin/bash
+** xfce4-session & 
 
 chmod +x ~/.vnc/xstartup
 ```
