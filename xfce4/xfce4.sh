@@ -4,7 +4,7 @@ clear
 cd $HOME
 #
 printf "\nInstalling dependencies ... "
-pkg install python wget -y 
+apt  install python wget -y 
 python -m pip install --upgrade pip
 pip install colorama
 
